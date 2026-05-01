@@ -1,27 +1,27 @@
-class BankAccount {
+export class BankAccount {
   #balance;
   constructor(owner, openingBalance = 0) {
     this._owner = owner;
-    this.#balance = openingBalance;
+    this.balanceCents = openingBalance;
     this.transactions = [];
   }
 
-  deposit(amount) {
-    this.#balance += amount;
-    this.transactions.push({ type: "deposit", amount });
+  deposit(amountCents) {
+    this.balanceCents += amountCents;
+    this.transactions.push({ type: "deposit", amountCents });
   }
 
-  withdraw(amount) {
-    if (amount > this.#balance) {
+  withdraw(amountCents) {
+    if (amountCents > this.balanceCents) {
       throw new Error("Insufficient Funds");
     }
 
-    this.#balance -= amount;
-    this.transactions.push({ type: "withdraw", amount });
+    this.balanceCents -= amountCents;
+    this.transactions.push({ type: "withdraw", amountCents });
   }
 
   get balance() {
-    return this.#balance;
+    return this.balanceCents;
   }
   set owner(newName) {
     this._owner = newName;
