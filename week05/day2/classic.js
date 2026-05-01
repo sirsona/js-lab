@@ -1,4 +1,4 @@
-class BankAcc {
+class BankAccount {
   #balance;
   constructor(owner, openingBalance = 0) {
     this._owner = owner;
@@ -13,7 +13,7 @@ class BankAcc {
 
   withdraw(amount) {
     if (amount > this.#balance) {
-      return new Error("Insufficient Funds");
+      throw new Error("Insufficient Funds");
     }
 
     this.#balance -= amount;
@@ -46,7 +46,7 @@ class BankAcc {
   }
 }
 
-const account = new BankAcc("Doe", 100_000);
+const account = new BankAccount("Doe", 100_000);
 account.deposit(50_000);
 account.withdraw(30_000);
 account.withdraw(30_000);
@@ -61,3 +61,4 @@ console.log((account.owner = "John"));
 console.log(account.owner);
 
 console.log(account.history());
+
