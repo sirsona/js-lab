@@ -17,7 +17,7 @@
 ## Example Usage
 
 ```js
-const account = new BankAcc("John", 100000);
+const account = new BankAccount("John", 100000);
 account.deposit(50000);
 account.withdraw(30000);
 
