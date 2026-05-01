@@ -12,7 +12,7 @@
 - Track transaction history
 - Use getters, setters, and static methods
 - Compare class vs constructor function implementations
-- Learn private fields (`#balance`) and prototypes
+- Private fields (`#balance`) and prototypes
 
 ## Example Usage
 
