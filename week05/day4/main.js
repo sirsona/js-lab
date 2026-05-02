@@ -10,3 +10,10 @@ s.addInterest();
 s.balanceCent
 
 s.transcations;
+
+
+import("./account/index.js").then((mod) => {
+    const acc = new mod.BankAccount("John", 100000);
+    acc.deposit(50000);
+    console.log(acc.balance);
+});
