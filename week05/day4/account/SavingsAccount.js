@@ -1,4 +1,4 @@
-import { BankAccount } from '../account/BankAccount.js';
+import { BankAccount } from './BankAccount.js';
 
 export class SavingsAccount extends BankAccount {
     constructor(owner, openingBalance, interestRate = 0.05) {
