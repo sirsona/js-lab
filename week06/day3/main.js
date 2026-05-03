@@ -78,4 +78,3 @@ result.then((v) => console.log(v));
 // top-level await
 
 const res = await getValue().then((v) => console.log(v));
-
