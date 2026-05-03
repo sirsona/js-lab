@@ -1,30 +1,47 @@
 export class BankAccount {
-  #balance;
+  #balanceCents;
   constructor(owner, openingBalance = 0) {
     this._owner = owner;
-    this.balanceCents = openingBalance;
+    this.#balanceCents = openingBalance;
     this.transactions = [];
   }
 
+  // validate
+  _validateAmount(amountCents) {
+    if (!Number.isInteger(amountCents) || amountCents <= 0) {
+      throw new Error("Amount must be a positive integer");
+    }
+  }
+
   deposit(amountCents) {
-    this.balanceCents += amountCents;
-    this.transactions.push({ type: "deposit", amountCents });
+    this._validateAmount(amountCents);
+    this.#balanceCents += amountCents;
+    this.transactions.push({
+      type: "deposit",
+      amountCents,
+      date: new Date().toLocaleString(),
+    });
   }
 
   withdraw(amountCents) {
-    if (amountCents > this.balanceCents) {
+    this._validateAmount(amountCents);
+    if (amountCents > this.#balanceCents) {
       throw new Error("Insufficient Funds");
     }
 
-    this.balanceCents -= amountCents;
-    this.transactions.push({ type: "withdraw", amountCents });
+    this.#balanceCents -= amountCents;
+    this.transactions.push({
+      type: "withdraw",
+      amountCents,
+      date: new Date().toLocaleString(),
+    });
   }
 
   get balance() {
-    return this.balanceCents;
+    return this.#balanceCents / 100;
   }
   set owner(newName) {
-    this._owner = newName;
+    this._owner = newName.charAt(0).toUpperCase() + newName.slice(1);
   }
   get owner() {
     return this._owner;
@@ -40,7 +57,7 @@ export class BankAccount {
     }
     return this.transactions
       ?.map((t, index) => {
-        return `${index + 1}. ${t.type.toUpperCase()} - KES ${t.amount}`;
+        return `${index + 1}. ${t.type.toUpperCase()} - KES ${t.amountCents}`;
       })
       .join("\n");
   }
@@ -62,3 +79,14 @@ console.log(account.owner);
 
 console.log(account.history());
 
+// task 4
+
+//const account2 = BankAccount("Joe", 50_000);
+// console.log(account2); // Class constructor BankAccount cannot be invoked without 'new'
+
+console.log((account.owner = "hussein"));
+
+console.log(account);
+
+// ai improvement
+account.balanceCents = -999999;
