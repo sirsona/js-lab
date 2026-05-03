@@ -15,3 +15,7 @@
 4. Is that class version really different under the hood?
 
 - No
+
+5. When calling constructor function without `new` keyword -> undefined
+   When calling class with `new` keyword -> TypeError: Class constructor BankAccount
+   cannot be invoked with `new`
