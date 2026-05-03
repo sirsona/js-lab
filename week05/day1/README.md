@@ -24,5 +24,5 @@ This project is a simple JavaScript exercise to learn objects and arrays
 Run the file with Node.js:
 
 ```bash
-node index.js
+node main.js
 ```
