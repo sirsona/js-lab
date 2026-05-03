@@ -5,15 +5,15 @@ function wait(ms) {
     })
 }
 
-// wait(1000).then(() => console.log("1 second passed"));
+wait(1000).then(() => console.log("1 second passed"));
 
 
-// wait(1000)
-//     .then(() => { console.log(1); return wait(1000) })
-//     .then(() => { console.log(2); return wait(1000) })
-//     .then(() => { console.log(3); return wait(1000) })
-//     .then(() => { console.log(4); return wait(1000) })
-//     .then(() => { console.log(5); return wait(1000) })
+wait(1000)
+    .then(() => { console.log(1); return wait(1000) })
+    .then(() => { console.log(2); return wait(1000) })
+    .then(() => { console.log(3); return wait(1000) })
+    .then(() => { console.log(4); return wait(1000) })
+    .then(() => { console.log(5); return wait(1000) })
 
 
 
@@ -27,13 +27,13 @@ function divide(a, b) {
     })
 }
 
-// divide(10, 2)
-//     .then((result) => console.log("Result:", result))
-//     .catch((err) => console.error("Error:", err.message));
+divide(10, 2)
+    .then((result) => console.log("Result:", result))
+    .catch((err) => console.error("Error:", err.message));
 
-// divide(10, 0)
-//     .then((result) => console.log("Result:", result))
-//     .catch((err) => console.error("Error:", err.message));
+divide(10, 0)
+    .then((result) => console.log("Result:", result))
+    .catch((err) => console.error("Error:", err.message));
 
 
 const p1 = wait(1000).then(() => "one");
