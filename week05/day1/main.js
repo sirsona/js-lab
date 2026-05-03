@@ -22,6 +22,13 @@ const product2 = { ...product, id: 2, name: "Pen" };
 
 console.log(product2);
 
+function summarise({ name: productName, priceCents, inStock = false }) {
+  return `${productName}: ${inStock ? "available" : "out of stock"} at KSh ${priceCents / 100}`;
+}
+
+console.log(summarise(product));
+console.log(summarise({ name: "Pen", priceCents: 5000 })); // uses default inStock
+
 product2.tags.push("ink");
 
 console.log(product.tags);
@@ -39,17 +46,22 @@ function addProduct(p) {
   inventory[p.id] = p;
 }
 function removeProduct(id) {
+  if (!inventory[id]) {
+    throw new Error(`Product with id ${id} does not exist`);
+  }
   delete inventory[id];
 }
 function listProducts() {
   return Object.values(inventory);
 }
 
-addProduct({ id: 1, name: "Notebook", price: 350, quantity: 2 });
-addProduct({ id: 2, name: "Pen", price: 50, quantity: 5 });
-addProduct({ id: 3, name: "Pencil", price: 30, quantity: 8 });
+addProduct({ id: 1, name: "Notebook", priceCents: 350, quantity: 2 });
+addProduct({ id: 2, name: "Pen", priceCents: 50, quantity: 5 });
+addProduct({ id: 3, name: "Pencil", priceCents: 30, quantity: 8 });
 
-console.log(inventory);
+console.log("List products: ", listProducts());
+
+console.log("Keys: ", Object.keys(inventory));
 
 removeProduct(3);
 
@@ -59,7 +71,7 @@ console.log(Object.entries(inventory));
 
 function calculateTotal(inventory) {
   return Object.values(inventory).reduce((total, item) => {
-    return total + item.price * item.quantity;
+    return total + item.priceCents * item.quantity;
   }, 0);
 }
 
@@ -84,3 +96,6 @@ const key = "name";
 const obj = { [key]: "Notebook" };
 
 console.log(obj[key]);
+
+// ai audit (4) accept - test
+// console.log(removeProduct(5)); // Product with id 5 does not exist
