@@ -26,3 +26,7 @@ acc.deposit(50000);
 acc.withdraw(30000);
 console.log(acc.getBalance()); // 1200
 console.log(acc.transactions);
+
+// task 4
+const account = BankAccount("Mohamed", 50000);
+console.log(account); // undefined
