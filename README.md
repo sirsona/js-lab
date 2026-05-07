@@ -1,1 +1,1 @@
-# js-lab
+# React Dashboard
