@@ -1,0 +1,44 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+#container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* widgets */
+.widget {
+  background: #fff;
+  margin-bottom: 20px;
+  padding: 16px;
+  border-radius: 8px;
+
+}
+
+/* content area inside widget */
+.content {
+  margin-top: 10px;
+}
+
+/* optional states */
+.loading {
+  color: #38bdf8;
+}
+
+.success {
+  color: #22c55e;
+}
+
+.error {
+  color: #f87171;
+}
