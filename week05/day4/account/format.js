@@ -1,4 +1,6 @@
 export function formatCurrency(cents) {
     //
-    console.log(`Ksh ${cents / 100}`);
+    return `Ksh ${cents / 100}`;
+
+
 }
