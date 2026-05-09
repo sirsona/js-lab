@@ -6,14 +6,14 @@ export function TaskManager() {
 
   function addTask() {
     if (!input.trim()) return;
-    setTasks([...tasks, { id: Date.now(), text: input, complete: false }]);
+    setTasks([...tasks, { id: Date.now(), text: input, completed: false }]);
 
     setInput("");
   }
 
   function toggleTask(id) {
     setTasks(
-      tasks.map((t) => (t.id == id ? { ...t, complete: !t.complete } : t)),
+      tasks.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)),
     );
   }
 
@@ -35,19 +35,20 @@ export function TaskManager() {
         <ul>
           {tasks.map((task) => (
             <li key={task.id}>
-              <span
+              <button
                 onClick={() => toggleTask(task.id)}
                 style={{
-                  textDecoration: task.complete ? "line-through" : "none",
+                  textDecoration: task.completed ? "line-through" : "none",
                 }}
               >
                 {task.text}
-              </span>
+              </button>
               <button onClick={() => deleteTask(task.id)}>Delete</button>
             </li>
           ))}
         </ul>
       )}
+      <p>{tasks.filter((t) => !t.completed).length} task(s) remaining</p>
     </>
   );
 }
