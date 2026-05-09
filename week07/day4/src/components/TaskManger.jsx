@@ -29,22 +29,25 @@ export function TaskManager() {
         onChange={(e) => setInput(e.target.value)}
       />
       <button onClick={addTask}>Add</button>
-
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <span
-              onClick={() => toggleTask(task.id)}
-              style={{
-                textDecoration: task.complete ? "line-through" : "none",
-              }}
-            >
-              {task.text}
-            </span>
-            <button onClick={() => deleteTask(task.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+      {tasks.length === 0 ? (
+        <p>No tasks yet -- add you first one above</p>
+      ) : (
+        <ul>
+          {tasks.map((task) => (
+            <li key={task.id}>
+              <span
+                onClick={() => toggleTask(task.id)}
+                style={{
+                  textDecoration: task.complete ? "line-through" : "none",
+                }}
+              >
+                {task.text}
+              </span>
+              <button onClick={() => deleteTask(task.id)}>Delete</button>
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 }
