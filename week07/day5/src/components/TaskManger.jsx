@@ -4,6 +4,15 @@ export function TaskManager() {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState("");
 
+  const [filter, setFilter] = useState("all");
+
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "active") return !task.completed;
+    if (filter === "completed") return task.completed;
+
+    return true;
+  });
+
   function addTask() {
     if (!input.trim()) return;
     setTasks([...tasks, { id: Date.now(), text: input, completed: false }]);
@@ -29,11 +38,12 @@ export function TaskManager() {
         onChange={(e) => setInput(e.target.value)}
       />
       <button onClick={addTask}>Add</button>
+
       {tasks.length === 0 ? (
-        <p>No tasks yet -- add you first one above</p>
+        <p>No tasks yet -- add your first one above</p>
       ) : (
         <ul>
-          {tasks.map((task) => (
+          {filteredTasks.map((task) => (
             <li key={task.id}>
               <button
                 onClick={() => toggleTask(task.id)}
@@ -43,12 +53,20 @@ export function TaskManager() {
               >
                 {task.text}
               </button>
+
               <button onClick={() => deleteTask(task.id)}>Delete</button>
             </li>
           ))}
         </ul>
       )}
-      <p>{tasks.filter((t) => !t.completed).length} task(s) remaining</p>
+
+      <div>
+        <p>{tasks.filter((t) => !t.completed).length} task(s) remaining</p>
+
+        <button onClick={() => setFilter("all")}>All</button>
+        <button onClick={() => setFilter("active")}>Active</button>
+        <button onClick={() => setFilter("completed")}>Completed</button>
+      </div>
     </>
   );
 }
