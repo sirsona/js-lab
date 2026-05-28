@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 
 function UserList() {
   const [users, setUsers] = useState([]);
-  const [errors, setError] = useState(null);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // fetch users
   async function loadUsers() {
     setLoading(true);
     setError(null);
@@ -17,17 +18,39 @@ function UserList() {
 
       setUsers(data);
     } catch (error) {
-      setError(errors.message);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
   }
+
+  // abort controller
   useEffect(() => {
-    loadUsers();
+    const controller = new AbortController();
+    async function load() {
+      try {
+        const res = await fetch("https://jsonplaceholder.typicode.com/users", {
+          signal: controller.signal,
+        });
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        setUsers(data);
+      } catch (err) {
+        if (err.name == "AbortError") return;
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+    return () => controller.abort();
   }, []);
+
   if (loading) return <p>Loading users.</p>;
-  if (errors) return <p>Error: {errors}</p>;
+  if (error) return <p>Error: {error}</p>;
   if (users.length === 0) return <p>No users</p>;
+
   return (
     <div>
       <ul>
