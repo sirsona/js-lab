@@ -1,20 +1,28 @@
 
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 // useFetch hook
 export function useFetch(url) {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const fetchData = useCallback(async (signal) => {
+    const controllerRef = useRef(null);
+
+    const fetchData = useCallback(async () => {
+
+        controllerRef.current?.abort();
+
+        const controller = new AbortController();
+
+        controllerRef.current = controller;
 
         setLoading(true);
         setError(null);
 
         try {
-            const res = await fetch(url, { signal });
+            const res = await fetch(url, { signal: controller.signal });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const json = await res.json();
             setData(json);
@@ -25,9 +33,9 @@ export function useFetch(url) {
             }
 
         } finally {
-            if (!signal.aborted) {
-                setLoading(false);
-            }
+
+            setLoading(false);
+
         }
 
 
@@ -35,16 +43,14 @@ export function useFetch(url) {
 
 
     useEffect(() => {
-        const controller = new AbortController();
 
-        fetchData(controller.signal);
+        fetchData();
 
-        return () => controller.abort();
+        return () => controllerRef.current?.abort();
     }, [fetchData]);
 
     const refetch = useCallback(() => {
-        const controller = new AbortController();
-        fetchData(controller.signal);
+        fetchData();
 
     }, [fetchData]);
 
