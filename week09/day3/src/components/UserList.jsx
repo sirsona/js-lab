@@ -6,7 +6,7 @@ function UserList() {
 
   if (loading) return <p>Loading users.</p>;
   if (error) return <p>Error: {error}</p>;
-  if (data.length === 0) return <p>No users</p>;
+  if (!data || data.length === 0) return <p>No users</p>;
 
   return (
     <div>
